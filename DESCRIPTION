@@ -7,7 +7,17 @@ Description: The package contains the agricultural yield data around the world.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
 Depends: 
     R (>= 2.10)
 LazyData: true
+Suggests: 
+    colorspace,
+    dplyr,
+    ggplot2,
+    ggrepel,
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+VignetteBuilder: knitr
+Config/testthat/edition: 3

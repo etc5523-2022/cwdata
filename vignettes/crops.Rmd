@@ -1,0 +1,75 @@
+---
+title: "Our World in Data: Key Crop Yields"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Our World in Data: Key Crop Yields}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+This dataset contains the agricultural yields across crop types and by entity (e.g. country and region) from 1960 to 2018.
+
+The data can be accessed by loading the `cwdata` and calling on the object `key_crop_yields`, or alternatively using `cwdata::key_crop_yields`.
+
+```{r setup}
+library(dplyr)
+library(colorspace)
+library(ggplot2)
+library(ggrepel)
+library(cwdata)
+key_crop_yields
+```
+
+Below we compute a line plot that shows the distribution of the yield by crop type in Australia from 1960 to 2018.
+
+```{r aus-plot, fig.width = 7}
+aus_crops <- key_crop_yields %>% 
+  filter(entity=="Australia")
+
+aus_crops %>% 
+  ggplot(aes(year, yield, color = crop)) +
+  geom_line() +
+  geom_text_repel(data = ~ .x %>% 
+              group_by(crop) %>% 
+              filter(year == max(year)),
+            aes(label = crop),
+            nudge_x = 1.5,
+            hjust = 0,
+            min.segment.length = Inf,
+            direction = "y") + 
+  scale_color_discrete_qualitative() +
+  guides(color = "none") + 
+  scale_y_log10() +
+  scale_x_continuous(limits = c(1960, 2025)) +
+  labs(x = "Year", 
+       y = "Yield (tonnes per hectare)",
+       title = "Australia")
+```
+
+Alternatively we compute a proportional stacked area chart as below. This makes it to see that Australia proportionally produces a lot of potato and bananas with this trend largely continuing over time. 
+
+
+```{r aus-area-chart, fig.width = 7}
+aus_crops %>% 
+  group_by(year) %>% 
+  mutate(perc = stack_normalise(yield),
+         crop = reorder(crop, -perc)) %>% 
+  ggplot(aes(year, perc, fill = crop)) + 
+  geom_area(color = "black") + 
+  scale_fill_discrete_qualitative() + 
+  theme(legend.position = "bottom") + 
+  labs(x = "Year",
+       y = "Proportion",
+       fill = "Crop",
+       title = "Australia")
+```
+
