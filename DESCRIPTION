@@ -13,11 +13,13 @@ Depends:
 LazyData: true
 Suggests: 
     colorspace,
-    dplyr,
-    ggplot2,
     ggrepel,
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Config/testthat/edition: 3
+Imports: 
+    dplyr,
+    ggplot2,
+    shiny
