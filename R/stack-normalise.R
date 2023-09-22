@@ -1,4 +1,3 @@
-
 #' Normalise numerical vectors
 #'
 #' @description This function takes a numerical vector
@@ -15,7 +14,7 @@
 #'  add up to 1.
 #' @export
 stack_normalise <- function(x) {
-  if(!is.numeric(x)) stop("The input needs to be a numerical vector.")
-  if(any(!is.na(x) && x < 0)) stop("All the values should be zero or greater.")
+  if (!is.numeric(x)) stop("The input needs to be a numerical vector.")
+  if (any(!is.na(x) & x < 0)) stop("All the values should be zero or greater.")
   x / sum(x, na.rm = TRUE)
 }
