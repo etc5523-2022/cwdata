@@ -2,7 +2,10 @@ Package: cwdata
 Title: Demo Package for ETC5523 Communicating with Data
 Version: 0.0.0.9000
 Authors@R: 
-    person("Emi", "Tanaka", , "emi.tanaka@monash.edu", role = c("aut", "cre"))
+    c(
+        person("Emi", "Tanaka", , "emi.tanaka@monash.edu", role = c("aut")),
+        person("Michael", "Lydeamore", , "michael.lydeamore@monash.edu", role = c("aut", "cre"))
+    )
 Description: The package contains the agricultural yield data around the world.
 License: MIT + file LICENSE
 Encoding: UTF-8
